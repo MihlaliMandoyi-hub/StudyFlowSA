@@ -42,7 +42,7 @@ Built as a coursework project for IFS324E (Mobile Application Development) at th
 ### Installation
 
 ```bash
-git clone https://github.com/<your-username>/StudyFlowSA.git
+git clone https://github.com/<MihlaliMandoyi-hub>/StudyFlowSA.git
 cd StudyFlowSA
 ```
 
