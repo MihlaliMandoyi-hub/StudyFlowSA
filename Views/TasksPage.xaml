@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:StudyFlowSA.ViewModels"
+             x:Class="StudyFlowSA.Views.TasksPage"
+             x:DataType="vm:TasksViewModel"
+             Title="Tasks">
+
+    <Grid RowDefinitions="Auto,*,Auto">
+
+        <Picker Grid.Row="0"
+                Title="Filter"
+                ItemsSource="{Binding FilterOptions}"
+                SelectedItem="{Binding SelectedFilter}"
+                Margin="16,16,16,0" />
+
+        <RefreshView Grid.Row="1"
+                     IsRefreshing="{Binding IsBusy}"
+                     Command="{Binding LoadTasksCommand}">
+            <Grid>
+                <CollectionView ItemsSource="{Binding Tasks}"
+                                 IsVisible="{Binding IsEmpty, Converter={StaticResource InvertedBoolConverter}}"
+                                 Margin="16">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="vm:TaskListItem">
+                            <Frame CornerRadius="12" Padding="16" Margin="0,0,0,10" HasShadow="False" BackgroundColor="White">
+                                <Grid ColumnDefinitions="6,*,Auto" ColumnSpacing="12">
+                                    <BoxView Grid.Column="0" Color="{Binding SubjectColorHex}" CornerRadius="3" />
+
+                                    <VerticalStackLayout Grid.Column="1" Spacing="4">
+                                        <VerticalStackLayout.GestureRecognizers>
+                                            <TapGestureRecognizer
+                                                Command="{Binding Source={RelativeSource AncestorType={x:Type vm:TasksViewModel}}, Path=EditTaskCommand}"
+                                                CommandParameter="{Binding .}" />
+                                        </VerticalStackLayout.GestureRecognizers>
+                                        <Label Text="{Binding Task.Title}" FontAttributes="Bold" FontSize="16" TextColor="#1B3358" />
+                                        <Label Text="{Binding SubjectName}" FontSize="13" TextColor="Gray" />
+                                        <Label Text="{Binding DueDateDisplay}" FontSize="12" TextColor="{Binding IsOverdue, Converter={StaticResource OverdueToColorConverter}}" />
+                                    </VerticalStackLayout>
+
+                                    <VerticalStackLayout Grid.Column="2" Spacing="4">
+                                        <Button Text="✓"
+                                                WidthRequest="40"
+                                                HeightRequest="40"
+                                                CornerRadius="20"
+                                                Padding="0"
+                                                BackgroundColor="#3B6D11"
+                                                TextColor="White"
+                                                Command="{Binding Source={RelativeSource AncestorType={x:Type vm:TasksViewModel}}, Path=ToggleCompleteCommand}"
+                                                CommandParameter="{Binding .}" />
+                                        <Button Text="Del"
+                                                FontSize="11"
+                                                BackgroundColor="Transparent"
+                                                TextColor="#993C1D"
+                                                Command="{Binding Source={RelativeSource AncestorType={x:Type vm:TasksViewModel}}, Path=DeleteTaskCommand}"
+                                                CommandParameter="{Binding .}" />
+                                    </VerticalStackLayout>
+                                </Grid>
+                            </Frame>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+
+                <VerticalStackLayout IsVisible="{Binding IsEmpty}"
+                                      VerticalOptions="Center"
+                                      HorizontalOptions="Center"
+                                      Spacing="8">
+                    <Label Text="Nothing here" FontSize="18" HorizontalOptions="Center" TextColor="Gray" />
+                    <Label Text="Tasks in this filter will appear here." FontSize="13" HorizontalOptions="Center" TextColor="Gray" />
+                </VerticalStackLayout>
+            </Grid>
+        </RefreshView>
+
+        <Button Grid.Row="2"
+                Text="Add task"
+                Command="{Binding AddTaskCommand}"
+                BackgroundColor="#D9A441"
+                TextColor="#1B3358"
+                FontAttributes="Bold"
+                CornerRadius="10"
+                Margin="16"
+                HeightRequest="50" />
+
+    </Grid>
+</ContentPage>

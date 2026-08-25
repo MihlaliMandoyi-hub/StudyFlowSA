@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:StudyFlowSA.ViewModels"
+             x:Class="StudyFlowSA.Views.SettingsPage"
+             x:DataType="vm:SettingsViewModel"
+             Title="Settings"
+             BackgroundColor="#F5F5F0">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="18">
+
+            <Frame BackgroundColor="White" CornerRadius="14" Padding="18" HasShadow="False">
+                <VerticalStackLayout Spacing="4">
+                    <Label Text="Learner" FontSize="12" TextColor="Gray" />
+                    <Label Text="{Binding LearnerName}" FontSize="18" FontAttributes="Bold" TextColor="#1B3358" />
+                </VerticalStackLayout>
+            </Frame>
+
+            <Frame BackgroundColor="White" CornerRadius="14" Padding="18" HasShadow="False">
+                <VerticalStackLayout Spacing="16">
+                    <Grid ColumnDefinitions="*,Auto">
+                        <Label Grid.Column="0" Text="Dark mode" FontSize="15" TextColor="#1B3358" VerticalOptions="Center" />
+                        <Switch Grid.Column="1" IsToggled="{Binding IsDarkMode}" />
+                    </Grid>
+
+                    <Grid ColumnDefinitions="*,Auto">
+                        <Label Grid.Column="0" Text="Notifications" FontSize="15" TextColor="#1B3358" VerticalOptions="Center" />
+                        <Switch Grid.Column="1" IsToggled="{Binding NotificationsEnabled}" />
+                    </Grid>
+                </VerticalStackLayout>
+            </Frame>
+
+            <Frame BackgroundColor="White" CornerRadius="14" Padding="18" HasShadow="False">
+                <VerticalStackLayout Spacing="10">
+                    <Label Text="Data &amp; privacy" FontSize="15" FontAttributes="Bold" TextColor="#1B3358" />
+                    <Label Text="All your data is stored only on this device. Nothing is uploaded or shared." FontSize="12" TextColor="Gray" />
+                    <Button Text="Clear all data"
+                            Command="{Binding ClearAllDataCommand}"
+                            BackgroundColor="Transparent"
+                            TextColor="#993C1D"
+                            FontSize="14"
+                            HorizontalOptions="Start" />
+                </VerticalStackLayout>
+            </Frame>
+
+            <Label Text="{Binding StatusMessage}"
+                   TextColor="#3B6D11"
+                   FontSize="13"
+                   HorizontalOptions="Center"
+                   IsVisible="{Binding StatusMessage, Converter={StaticResource StringNotEmptyConverter}}" />
+
+            <Label Text="StudyFlow SA — version 1.0" FontSize="11" TextColor="Gray" HorizontalOptions="Center" Margin="0,20,0,0" />
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

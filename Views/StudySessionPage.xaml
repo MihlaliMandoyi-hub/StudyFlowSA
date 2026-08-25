@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:StudyFlowSA.ViewModels"
+             x:Class="StudyFlowSA.Views.StudySessionPage"
+             x:DataType="vm:StudySessionViewModel"
+             Title="Study timer"
+             BackgroundColor="#1B3358">
+
+    <VerticalStackLayout Padding="24" Spacing="20" VerticalOptions="Center">
+
+        <Label Text="{Binding ElapsedDisplay}"
+               FontSize="56"
+               FontAttributes="Bold"
+               TextColor="White"
+               HorizontalOptions="Center" />
+
+        <Frame IsVisible="{Binding IsIdle}" BackgroundColor="White" CornerRadius="16" Padding="20" HasShadow="False">
+            <VerticalStackLayout Spacing="14">
+                <Label Text="Subject" FontSize="13" TextColor="#1B3358" />
+                <Picker ItemsSource="{Binding Subjects}"
+                        ItemDisplayBinding="{Binding Name}"
+                        SelectedItem="{Binding SelectedSubject}"
+                        Title="Select subject" />
+
+                <Label Text="Planned duration (minutes)" FontSize="13" TextColor="#1B3358" />
+                <Picker ItemsSource="{Binding DurationOptions}"
+                        SelectedItem="{Binding SelectedDurationMinutes}" />
+
+                <Label Text="{Binding ErrorMessage}"
+                       TextColor="Red"
+                       FontSize="13"
+                       IsVisible="{Binding ErrorMessage, Converter={StaticResource StringNotEmptyConverter}}" />
+
+                <Button Text="Start session"
+                        Command="{Binding StartCommand}"
+                        BackgroundColor="#D9A441"
+                        TextColor="#1B3358"
+                        FontAttributes="Bold"
+                        CornerRadius="10"
+                        HeightRequest="50" />
+            </VerticalStackLayout>
+        </Frame>
+
+        <VerticalStackLayout IsVisible="{Binding IsRunning}" Spacing="12">
+            <Label Text="{Binding SelectedSubject.Name}" FontSize="18" TextColor="#D9A441" HorizontalOptions="Center" />
+
+            <Grid ColumnDefinitions="*,*" ColumnSpacing="12">
+                <Button Grid.Column="0"
+                        Text="Pause / Resume"
+                        Command="{Binding PauseCommand}"
+                        BackgroundColor="White"
+                        TextColor="#1B3358"
+                        CornerRadius="10"
+                        HeightRequest="50" />
+                <Button Grid.Column="1"
+                        Text="Finish"
+                        Command="{Binding FinishCommand}"
+                        BackgroundColor="#3B6D11"
+                        TextColor="White"
+                        FontAttributes="Bold"
+                        CornerRadius="10"
+                        HeightRequest="50" />
+            </Grid>
+
+            <Button Text="Cancel session"
+                    Command="{Binding CancelCommand}"
+                    BackgroundColor="Transparent"
+                    TextColor="White"
+                    FontSize="13" />
+        </VerticalStackLayout>
+
+    </VerticalStackLayout>
+</ContentPage>

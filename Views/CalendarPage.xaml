@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:StudyFlowSA.ViewModels"
+             x:Class="StudyFlowSA.Views.CalendarPage"
+             x:DataType="vm:CalendarViewModel"
+             Title="Calendar"
+             BackgroundColor="#F5F5F0">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="16" Spacing="14">
+
+            <Frame IsVisible="{Binding HasUpcomingDeadline}"
+                   BackgroundColor="#1B3358"
+                   CornerRadius="12"
+                   Padding="14"
+                   HasShadow="False">
+                <Label Text="{Binding UpcomingDeadlineText}"
+                       FontSize="13"
+                       TextColor="#D9A441"
+                       HorizontalTextAlignment="Center" />
+            </Frame>
+
+            <Grid ColumnDefinitions="Auto,*,Auto">
+                <Button Grid.Column="0"
+                        Text="◀"
+                        BackgroundColor="Transparent"
+                        TextColor="#1B3358"
+                        Command="{Binding PreviousMonthCommand}" />
+                <Label Grid.Column="1"
+                       Text="{Binding MonthLabel}"
+                       FontSize="18"
+                       FontAttributes="Bold"
+                       TextColor="#1B3358"
+                       HorizontalOptions="Center"
+                       VerticalOptions="Center" />
+                <Button Grid.Column="2"
+                        Text="▶"
+                        BackgroundColor="Transparent"
+                        TextColor="#1B3358"
+                        Command="{Binding NextMonthCommand}" />
+            </Grid>
+
+            <Grid ColumnDefinitions="*,*,*,*,*,*,*">
+                <Label Grid.Column="0" Text="M" HorizontalOptions="Center" FontSize="12" TextColor="Gray" />
+                <Label Grid.Column="1" Text="T" HorizontalOptions="Center" FontSize="12" TextColor="Gray" />
+                <Label Grid.Column="2" Text="W" HorizontalOptions="Center" FontSize="12" TextColor="Gray" />
+                <Label Grid.Column="3" Text="T" HorizontalOptions="Center" FontSize="12" TextColor="Gray" />
+                <Label Grid.Column="4" Text="F" HorizontalOptions="Center" FontSize="12" TextColor="Gray" />
+                <Label Grid.Column="5" Text="S" HorizontalOptions="Center" FontSize="12" TextColor="Gray" />
+                <Label Grid.Column="6" Text="S" HorizontalOptions="Center" FontSize="12" TextColor="Gray" />
+            </Grid>
+
+            <CollectionView ItemsSource="{Binding DayCells}">
+                <CollectionView.ItemsLayout>
+                    <GridItemsLayout Orientation="Vertical" Span="7" HorizontalItemSpacing="2" VerticalItemSpacing="4" />
+                </CollectionView.ItemsLayout>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="vm:CalendarDayCell">
+                        <Grid HeightRequest="44">
+                            <Grid.GestureRecognizers>
+                                <TapGestureRecognizer
+                                    Command="{Binding Source={RelativeSource AncestorType={x:Type vm:CalendarViewModel}}, Path=SelectDayCommand}"
+                                    CommandParameter="{Binding .}" />
+                            </Grid.GestureRecognizers>
+
+                            <Frame WidthRequest="36"
+                                   HeightRequest="36"
+                                   CornerRadius="18"
+                                   Padding="0"
+                                   HasShadow="False"
+                                   BackgroundColor="Transparent"
+                                   BorderColor="{Binding IsToday, Converter={StaticResource TodayToBorderColorConverter}}"
+                                   HorizontalOptions="Center"
+                                   VerticalOptions="Center"
+                                   Opacity="{Binding IsCurrentMonth, Converter={StaticResource InvertedBoolConverter}}" />
+
+                            <VerticalStackLayout VerticalOptions="Center" HorizontalOptions="Center" Spacing="2">
+                                <Label Text="{Binding DayNumber}"
+                                       FontSize="14"
+                                       HorizontalOptions="Center"
+                                       TextColor="#1B3358" />
+                                <BoxView IsVisible="{Binding HasTasks}"
+                                         WidthRequest="6"
+                                         HeightRequest="6"
+                                         CornerRadius="3"
+                                         Color="#D9A441"
+                                         HorizontalOptions="Center" />
+                            </VerticalStackLayout>
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+            <BoxView HeightRequest="1" Color="#DDDDDD" Margin="0,10" />
+
+            <Label Text="{Binding SelectedDate, StringFormat='Tasks due {0:dddd, dd MMMM}'}"
+                   FontSize="15"
+                   FontAttributes="Bold"
+                   TextColor="#1B3358" />
+
+            <CollectionView ItemsSource="{Binding SelectedDayTasks}"
+                             IsVisible="{Binding IsEmpty, Converter={StaticResource InvertedBoolConverter}}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="vm:TaskListItem">
+                        <Frame CornerRadius="12" Padding="14" Margin="0,0,0,8" HasShadow="False" BackgroundColor="White">
+                            <Grid ColumnDefinitions="6,*" ColumnSpacing="12">
+                                <BoxView Grid.Column="0" Color="{Binding SubjectColorHex}" CornerRadius="3" />
+                                <VerticalStackLayout Grid.Column="1" Spacing="2">
+                                    <Label Text="{Binding Task.Title}" FontAttributes="Bold" FontSize="15" TextColor="#1B3358" />
+                                    <Label Text="{Binding SubjectName}" FontSize="12" TextColor="Gray" />
+                                </VerticalStackLayout>
+                            </Grid>
+                        </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+            <Label IsVisible="{Binding IsEmpty}"
+                   Text="Nothing due this day."
+                   TextColor="Gray"
+                   HorizontalOptions="Center"
+                   Margin="0,10" />
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

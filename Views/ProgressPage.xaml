@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:StudyFlowSA.ViewModels"
+             x:Class="StudyFlowSA.Views.ProgressPage"
+             x:DataType="vm:ProgressViewModel"
+             Title="Progress"
+             BackgroundColor="#F5F5F0">
+
+    <RefreshView IsRefreshing="{Binding IsBusy}" Command="{Binding LoadProgressCommand}">
+        <ScrollView>
+            <VerticalStackLayout Padding="20" Spacing="18">
+
+                <Label Text="{Binding WeekRangeLabel}"
+                       FontSize="14"
+                       TextColor="Gray" />
+
+                <Grid ColumnDefinitions="*,*" ColumnSpacing="12">
+                    <Frame Grid.Column="0" BackgroundColor="#1B3358" CornerRadius="14" Padding="16" HasShadow="False">
+                        <VerticalStackLayout Spacing="2">
+                            <Label Text="{Binding CompletionRatePercent, StringFormat='{0}%'}" FontSize="26" FontAttributes="Bold" TextColor="White" />
+                            <Label Text="{Binding TasksCompletedThisWeek, StringFormat='{0} of'}" FontSize="11" TextColor="#D9A441" />
+                            <Label Text="{Binding TasksDueThisWeek, StringFormat='{0} tasks done'}" FontSize="11" TextColor="#D9A441" />
+                        </VerticalStackLayout>
+                    </Frame>
+                    <Frame Grid.Column="1" BackgroundColor="#D9A441" CornerRadius="14" Padding="16" HasShadow="False">
+                        <VerticalStackLayout Spacing="2">
+                            <Label Text="{Binding TotalMinutesThisWeek, StringFormat='{0} min'}" FontSize="26" FontAttributes="Bold" TextColor="#1B3358" />
+                            <Label Text="Total study time" FontSize="11" TextColor="#1B3358" />
+                            <Label Text="this week" FontSize="11" TextColor="#1B3358" />
+                        </VerticalStackLayout>
+                    </Frame>
+                </Grid>
+
+                <Label Text="Hours by subject" FontSize="16" FontAttributes="Bold" TextColor="#1B3358" Margin="0,10,0,0" />
+
+                <CollectionView ItemsSource="{Binding SubjectBreakdown}"
+                                 IsVisible="{Binding HasData}">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="vm:SubjectProgressItem">
+                            <VerticalStackLayout Spacing="4" Margin="0,0,0,14">
+                                <Grid ColumnDefinitions="*,Auto">
+                                    <Label Grid.Column="0" Text="{Binding SubjectName}" FontSize="14" TextColor="#1B3358" />
+                                    <Label Grid.Column="1" Text="{Binding MinutesStudied, StringFormat='{0} min'}" FontSize="13" TextColor="Gray" />
+                                </Grid>
+                                <Grid HeightRequest="14">
+                                    <Frame CornerRadius="7" Padding="0" HasShadow="False" BackgroundColor="#E8E8E0" HeightRequest="14" />
+                                    <Frame CornerRadius="7"
+                                           Padding="0"
+                                           HasShadow="False"
+                                           BackgroundColor="{Binding SubjectColorHex}"
+                                           HeightRequest="14"
+                                           HorizontalOptions="Start"
+                                           WidthRequest="{Binding BarWidthFraction, Converter={StaticResource FractionToBarWidthConverter}}" />
+                                </Grid>
+                            </VerticalStackLayout>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+
+                <Frame IsVisible="{Binding HasData, Converter={StaticResource InvertedBoolConverter}}"
+                       BackgroundColor="White"
+                       CornerRadius="14"
+                       Padding="20"
+                       HasShadow="False">
+                    <VerticalStackLayout Spacing="6">
+                        <Label Text="No study sessions logged yet" FontSize="15" TextColor="Gray" HorizontalOptions="Center" />
+                        <Label Text="Start a study session to see your progress here." FontSize="12" TextColor="Gray" HorizontalOptions="Center" HorizontalTextAlignment="Center" />
+                    </VerticalStackLayout>
+                </Frame>
+
+            </VerticalStackLayout>
+        </ScrollView>
+    </RefreshView>
+</ContentPage>
