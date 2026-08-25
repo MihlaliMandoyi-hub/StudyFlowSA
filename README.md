@@ -30,7 +30,9 @@ Built as a coursework project for IFS324E (Mobile Application Development) at th
 
 <!-- ![Home screen](screenshots/home.png) --><img width="1080" height="2400" alt="Screenshot_20260825_030146" src="https://github.com/user-attachments/assets/89e16514-c40d-47cf-b69b-a4c3f7697ff7" />
 
-<!-- ![Add task]<img width="1080" height="2400" alt="Screenshot_20260825_030209" src="https://github.com/user-attachments/assets/5e5c42d5-f090-4605-8efd-5dee7393a44e" 
+<!-- ![Add task]<img width="1080" height="2400" alt="Screenshot_20260825_030209" src="https://github.com/user-attachments/assets/2bb4a439-fc23-47ae-aa7c-58c08c4c1ae5" />
+ 
+<img width="1080" height="2400" alt="Screenshot_20260825_030519" src="https://github.com/user-attachments/assets/c6c63b40-0b39-46f1-a3e4-0153e1049492" />
 
 
 <!-- ![Notifications](screenshots/notification.png) -->
