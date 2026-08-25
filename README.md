@@ -28,7 +28,8 @@ Built as a coursework project for IFS324E (Mobile Application Development) at th
 ## Screenshots
 
 <!-- Add screenshots here, e.g.: -->
-<!-- ![Home screen](screenshots/home.png) -->
+<!-- ![Home screen](screenshots/home.png) --><img width="1080" height="2400" alt="Screenshot_20260825_030146" src="https://github.com/user-attachments/assets/89e16514-c40d-47cf-b69b-a4c3f7697ff7" />
+
 <!-- ![Add class](screenshots/add-class.png) -->
 <!-- ![Notifications](screenshots/notification.png) -->
 
