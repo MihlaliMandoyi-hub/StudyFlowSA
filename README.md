@@ -4,16 +4,16 @@ An offline-first Android timetable and schedule manager built for South African 
 
 ## Overview
 
-StudyFlow SA solves a simple but common problem: students need a reliable way to manage their task schedules that works even when data or Wi-Fi isn't available. The app stores everything locally on-device, so your timetable is always accessible — no signal required.
+StudyFlow SA solves a simple but common problem: students need a reliable way to manage their task schedules that works even when data or Wi-Fi isn't available. The app stores everything locally on-device, so your timetable is always accessible no signal required.
 
 Built as a coursework project for IFS324E (Mobile Application Development) at the University of Fort Hare, and tested end-to-end on a physical Android device.
 
 ## Features
 
-- 🗓️ **Timetable management** — add, edit, and delete classes and subjects
-- 🔔 **Class reminders** — local notifications so you never miss a class
-- 📴 **Offline-first architecture** — all data stored locally via SQLite, no internet required
-- 📱 **Native Android experience** — built with .NET MAUI for a smooth, responsive UI
+- 🗓️ **Timetable management** add, edit, and delete classes and subjects
+- 🔔 **Class reminders** local notifications so you never miss a class
+- 📴 **Offline-first architecture** all data stored locally via SQLite, no internet required
+- 📱 **Native Android experience** built with .NET MAUI for a smooth, responsive UI
 
 ## Tech Stack
 
@@ -47,7 +47,7 @@ Built as a coursework project for IFS324E (Mobile Application Development) at th
 ### Installation
 
 ```bash
-git clone https://github.com/<MihlaliMandoyi-hub>/StudyFlowSA.git
+git clone https://github.com/MihlaliMandoyi-hub/StudyFlowSA.git
 cd StudyFlowSA
 ```
 
@@ -58,11 +58,11 @@ cd StudyFlowSA
 
 ## Why This Project
 
-Built to explore offline-first mobile architecture and local data persistence patterns using .NET MAUI — a growing cross-platform framework — while solving a real, everyday problem for students managing multiple modules, lectures, and deadlines.
+Built to explore offline-first mobile architecture and local data persistence patterns using .NET MAUI a growing cross-platform framework while solving a real, everyday problem for students managing multiple modules, lectures, and deadlines.
 
 ## Author
 
-**Mihlali** — BCom Information Systems student, University of Fort Hare
+**Mihlali** BCom Information Systems student, University of Fort Hare
 
 ## License
 
